@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class romantoInteger {
 
-    public int romanToInt(String s) {
+    public static int romanToInt(String s) {
         HashMap<Character,Integer> map = new HashMap<>();
         map.put('I',1);
         map.put('V',5);
@@ -15,20 +15,28 @@ public class romantoInteger {
         map.put('D',500);
         map.put('M',1000);
 
-//        System.out.println(s);
-        int countVal=0,i,j;
-//        System.out.println(map.containsKey('I'));
-        for(i=0;i<s.length();i++){
-            if(map.containsKey(s.charAt(i))){
+        int countVal=0;
+        for(int i=s.length()-1;i>0;i--){
+            if(map.get(s.charAt(i)) > map.get(s.charAt(i-1))){
+                countVal+= (map.get(s.charAt(i))-map.get(s.charAt(i-1)));
+                    i--;
+            }
+            else if (map.get(s.charAt(i)).equals(map.get(s.charAt(i - 1)))){
+                countVal+=(map.get(s.charAt(i)));
+            }
+            else {
                 countVal+=map.get(s.charAt(i));
-//                System.out.println(map.get(s.charAt(i)));
             }
 
         }
+       // System.out.println(s.charAt(0));
+        if(s.length()==1){countVal+=map.get(s.charAt(0));}
+        else if(map.get(s.charAt(0)) >= map.get(s.charAt(1))){
+       countVal+=map.get(s.charAt(0));}
 //        System.out.println(countVal);
         return countVal;
     }
-    public void main(String[] args) {
+    public static void main(String[] args) {
 
 
         String str;
