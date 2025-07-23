@@ -1,6 +1,7 @@
 package LeetCodewith_java;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ContainerwithmostWater {
@@ -8,25 +9,20 @@ public class ContainerwithmostWater {
     public static int maxArea(int[] height)
     {
         int[] tempArr = new int[height.length];
-        int i ,j, area =0, max,sc_max=0,ind1=0,ind2 = 0;
-        for(i=0;i<height.length;i++){
-            tempArr[i] = height[i];
+        int i ,j, area =0, max=0,ht=0,ind1=0,ind2 = 0;
+        int len = height.length;
+        i=0;
+        j = len-1;
+        while(i<j){
+            ht = Math.min(height[i],height[j]);
+            area = (j-i)*ht;
+            max = Math.max(max,area);
+            if(height[i]<height[j]) i++;
+            else j--;
+
         }
-        Arrays.sort(tempArr);
-        max = tempArr[tempArr.length-1];
 
-        for(i=tempArr.length-2;i>=0;i--){
-            if(tempArr[i]!=max){sc_max = tempArr[i]; break;}
-        }
-        //System.out.println("max : "+ max + " second max : "+sc_max);
-       for(i=0;i<height.length;i++){
-           if((height[i]==max && height[height.length-1]==sc_max)||
-                   (height[i]==sc_max && height[height.length-1]==max) ||
-                   (height[i]==max && height[height.length-1]==max)){ind1 = i; ind2 = height.length-1; break;}
-       }
-
-
-        return (ind2-ind1)*sc_max;
+        return max;
     }
 
     public static void takeArray(){
@@ -46,3 +42,4 @@ public class ContainerwithmostWater {
         takeArray();
     }
 }
+// 1 8 6 2 5 4 8 3 7
